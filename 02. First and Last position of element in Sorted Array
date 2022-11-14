@@ -1,0 +1,32 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int res[] = {-1, -1};
+        
+        helper(nums, target, res, false);
+        helper(nums, target, res, true);
+        
+        return res;
+    }
+    public void helper(int nums[], int target, int res[], boolean isFirst){
+        int low = 0;
+        int high = nums.length - 1;
+        
+        while(low <= high){
+            int mid = low + (high-low) / 2;
+            
+            if(nums[mid] > target){
+                high = mid - 1;
+            }else if(nums[mid] < target){
+                low = mid + 1;
+            }else{
+                if(isFirst){
+                    res[0] = mid;
+                    high = mid - 1;
+                }else{
+                    res[1] = mid;
+                    low = mid + 1;
+                }
+            } 
+        }
+    }
+}
